@@ -5,6 +5,7 @@ import Profile from "./Profile/Profile";
 import Nav from "./Nav/Nav";
 import "./App.css";
 import Auth from "./Auth/Auth";
+import Callback from "./Callback/Callback";
 
 class App extends Component {
   constructor(props) {
@@ -14,11 +15,15 @@ class App extends Component {
   render() {
     return (
       <>
-        <Nav />
+        <Nav auth={this.auth} />
         <Route
           path="/"
           exact
           render={props => <Home auth={this.auth} {...props} />}
+        />
+        <Route
+          path="/callback"
+          render={props => <Callback auth={this.auth} {...props} />}
         />
         <Route path="/profile" exact component={Profile} />
       </>
