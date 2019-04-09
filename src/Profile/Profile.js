@@ -1,13 +1,37 @@
-import React, { Component } from 'react';
+import React, { Component } from "react"
 
 class Profile extends Component {
-    render() {
-        return (
-            <div>
-                <h1>Profile</h1>
-            </div>
-        );
-    }
+  state = {
+    profile: null,
+    error: ``
+  }
+
+  componentDidMount() {
+    this.loadUserProfile()
+  }
+
+  loadUserProfile() {
+    this.props.auth.getProfile((profile, error) =>
+      this.setState({ profile, error })
+    )
+  }
+  render() {
+    const { profile } = this.state
+    if (!profile) return null
+    console.log(profile)
+    return (
+      <>
+        <h1>Profile</h1>
+        <p>{profile.nickname}</p>
+        <img
+          style={{ borderRadius: "50%", maxWidth: 100, maxHeight: 100 }}
+          src={profile.picture}
+          alt="profile pic"
+        />
+        <pre>{JSON.stringify(profile, null, 2)}</pre>
+      </>
+    )
+  }
 }
 
-export default Profile;
+export default Profile
